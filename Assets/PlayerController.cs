@@ -37,6 +37,10 @@ public class PlayerController : NetworkBehaviour
 
     void Start()
     {
+        // Hide the cursor and lock it to the window when the player spawns
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         // Disable the MouseLook component by default
         var mouseLook = GetComponent<SmoothMouseLook>();
         mouseLook.enabled = false;
