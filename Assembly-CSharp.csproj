@@ -85,7 +85,6 @@
      <Compile Include="Assets\OVR\Scripts\Util\OVRSceneSampleController.cs" />
      <Compile Include="Assets\OVR\Scripts\Util\OVRScreenFade.cs" />
      <Compile Include="Assets\OVR\Scripts\Util\OVRWaitCursor.cs" />
-     <Compile Include="Assets\PaintSplatter.cs" />
      <Compile Include="Assets\PlayerController.cs" />
      <Compile Include="Assets\SmoothMouseLook.cs" />
      <Compile Include="Assets\Splatoonity\Scripts\MatchEditorCamera.cs" />

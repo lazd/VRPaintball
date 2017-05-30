@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Editor\ExportTerrain.cs" />
      <Compile Include="Assets\OVR\Editor\OVRBuild.cs" />
      <Compile Include="Assets\OVR\Editor\OVRManifestPreprocessor.cs" />
      <Compile Include="Assets\OVR\Editor\OVRMoonlightLoader.cs" />
