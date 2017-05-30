@@ -78,8 +78,8 @@ public class PlayerController : NetworkBehaviour
                 // Enable MouseLook
                 mouseLook.enabled = true;
 
-                // Move the camera root back so the head rotates in the right place 
-                cameraRoot.localPosition = new Vector3(0f, cameraRoot.localPosition.y, 0f);
+                // Move the head position back so the head rotates in the right place 
+                Camera.main.transform.Find("HeadPosition").localPosition = Vector3.zero;
 
                 // Attach the dominant hand to the head
                 transform.Find("BodyRoot/CameraRoot/DominantTouch").parent = Camera.main.transform;
