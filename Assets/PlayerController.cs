@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.VR;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -39,10 +40,6 @@ public class PlayerController : NetworkBehaviour
 
     void Start()
     {
-        // Hide the cursor and lock it to the window when the player spawns
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
         // Disable the MouseLook component by default
         var mouseLook = GetComponent<SmoothMouseLook>();
         mouseLook.enabled = false;
@@ -75,10 +72,14 @@ public class PlayerController : NetworkBehaviour
             // This handles rotation and position of the head relative to the headset
             headPosition = Camera.main.transform.Find("HeadPosition");
 
-            if (!OVRManager.isHmdPresent)
+            if (!VRDevice.isPresent)
             {
                 // Enable MouseLook
                 mouseLook.enabled = true;
+
+                // Hide the cursor and lock it to the window when the player spawns
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
 
                 // Move the head position back so the head rotates in the right place 
                 Camera.main.transform.Find("HeadPosition").localPosition = Vector3.zero;
@@ -100,7 +101,7 @@ public class PlayerController : NetworkBehaviour
         }
 
         // Movement
-        if (OVRManager.isHmdPresent)
+        if (VRDevice.isPresent)
         {
             // Move hands into the right place
             dominantControllerObject.transform.localPosition = OVRInput.GetLocalControllerPosition(dominantController);
@@ -196,9 +197,8 @@ public class PlayerController : NetworkBehaviour
             }
         }
 
-        if (OVRInput.Get(OVRInput.Button.One, dominantController) || Input.GetButton("Jump")) {
+        if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, supportController) > 0 || Input.GetButton("Jump")) {
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-
 
             // Apply speed limit
             if (rb.velocity.magnitude > maxSpeed){
