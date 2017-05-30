@@ -40,6 +40,7 @@ public class SplatManagerSystem
 }
 
 public class SplatManager : MonoBehaviour {
+	static int instanceCount = 0;
 
 	public int sizeX;
 	public int sizeY;
@@ -67,11 +68,17 @@ public class SplatManager : MonoBehaviour {
 	public RenderTexture RT4;
 	public Texture2D Tex4;
 
-    // Use this for initialization
-    void Start () {
+	public SplatManagerSystem splatManager;
 
-		SplatManagerSystem.instance.splatsX = splatsX;
-		SplatManagerSystem.instance.splatsY = splatsY;
+  // Use this for initialization
+  void Start () {
+  	instanceCount++;
+
+  	// Make a splat manager
+  	splatManager = new SplatManagerSystem();
+
+		splatManager.splatsX = splatsX;
+		splatManager.splatsY = splatsY;
 
 		splatBlitMaterial = new Material (Shader.Find ("Splatoonity/SplatBlit"));
 		
@@ -206,7 +213,7 @@ public class SplatManager : MonoBehaviour {
 	// Each splat is tested against the entire world position texture.
 	void PaintSplats() {
 
-		if (SplatManagerSystem.instance.m_Splats.Count > 0) {
+		if (splatManager.m_Splats.Count > 0) {
 			
 			Matrix4x4[] SplatMatrixArray = new Matrix4x4[10];
 			Vector4[] SplatScaleBiasArray = new Vector4[10];
@@ -214,11 +221,11 @@ public class SplatManager : MonoBehaviour {
 
 			// Render up to 10 splats per frame.
 			int i = 0;
-			while( SplatManagerSystem.instance.m_Splats.Count > 0 && i < 10 ){
-				SplatMatrixArray [i] = SplatManagerSystem.instance.m_Splats [0].splatMatrix;
-				SplatScaleBiasArray [i] = SplatManagerSystem.instance.m_Splats [0].scaleBias;
-				SplatChannelMaskArray [i] = SplatManagerSystem.instance.m_Splats [0].channelMask;
-				SplatManagerSystem.instance.m_Splats.RemoveAt(0);
+			while( splatManager.m_Splats.Count > 0 && i < 10 ){
+				SplatMatrixArray [i] = splatManager.m_Splats [0].splatMatrix;
+				SplatScaleBiasArray [i] = splatManager.m_Splats [0].scaleBias;
+				SplatChannelMaskArray [i] = splatManager.m_Splats [0].channelMask;
+				splatManager.m_Splats.RemoveAt(0);
 				i++;
 			}
 			splatBlitMaterial.SetMatrixArray ( "_SplatMatrix", SplatMatrixArray );
@@ -297,7 +304,7 @@ public class SplatManager : MonoBehaviour {
 			scores.z = scoresColor.b;
 			scores.w = scoresColor.a;
 
-			SplatManagerSystem.instance.scores = scores;
+			splatManager.scores = scores;
 
 			yield return new WaitForSeconds (1.0f);
 
