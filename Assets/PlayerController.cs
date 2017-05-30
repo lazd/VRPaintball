@@ -16,14 +16,12 @@ public class PlayerController : NetworkBehaviour
     public GameObject primaryWeapon;
     public GameObject secondaryWeapon;
 
-    public float moveSpeed = 900.0f;
+    public float moveSpeed = 1.6f;
 
     protected Transform headPosition;
 
     private float nextPrimaryFireTime = 0f;
     private float nextSecondaryFireTime = 0f;
-
-    private bool usingVR = true;
 
     private Rigidbody rb;
 
@@ -35,20 +33,13 @@ public class PlayerController : NetworkBehaviour
     private OVRInput.Controller dominantTouch;
     private OVRInput.Controller supportTouch;
 
+    private Vector3 moveDirection;
+
     void Start()
     {
-        if (isLocalPlayer)
-        {
-            // Put the camera inside of the player
-            // This makes it so moving the player moves the headset
-            Camera.main.transform.parent = transform.Find("BodyRoot/CameraRoot");
-            Camera.main.transform.localPosition = Vector3.zero;
-            Camera.main.transform.localRotation = Quaternion.Euler(Vector3.zero);
-
-            // Put the head inside of the camera's head position
-            // This handles rotation and position of the head relative to the headset
-            headPosition = Camera.main.transform.Find("HeadPosition");
-        }
+        // Disable the MouseLook component by default
+        var mouseLook = GetComponent<SmoothMouseLook>();
+        mouseLook.enabled = false;
 
         // Get the rigidbody associated with the player
         rb = GetComponent<Rigidbody>();
@@ -63,6 +54,36 @@ public class PlayerController : NetworkBehaviour
         // Get instances from the objects
         primaryBulletInstance = primaryWeapon.GetComponent(typeof(Bullet)) as Bullet;
         secondaryBulletInstance = secondaryWeapon.GetComponent(typeof(Bullet)) as Bullet;
+
+        if (isLocalPlayer)
+        {
+            var cameraRoot = transform.Find("BodyRoot/CameraRoot");
+
+            // Put the camera inside of the player
+            // This makes it so moving the player moves the headset
+            Camera.main.transform.parent = cameraRoot;
+            Camera.main.transform.localPosition = Vector3.zero;
+            Camera.main.transform.localRotation = Quaternion.Euler(Vector3.zero);
+
+            // Put the head inside of the camera's head position
+            // This handles rotation and position of the head relative to the headset
+            headPosition = Camera.main.transform.Find("HeadPosition");
+
+            if (!OVRManager.isHmdPresent)
+            {
+                // Enable MouseLook
+                mouseLook.enabled = true;
+
+                // Move the camera root back so the head rotates in the right place 
+                cameraRoot.localPosition = new Vector3(0f, cameraRoot.localPosition.y, 0f);
+
+                // Attach the dominant hand to the head
+                transform.Find("BodyRoot/CameraRoot/DominantTouch").parent = Camera.main.transform;
+
+                // Remove the second hand
+                transform.Find("BodyRoot/CameraRoot/SupportTouch").gameObject.SetActive(false);
+            }
+        }
     }
 
     void Update()
@@ -73,21 +94,13 @@ public class PlayerController : NetworkBehaviour
         }
 
         // Movement
-        if (usingVR)
+        if (OVRManager.isHmdPresent)
         {
             // Move hands into the right place
-            if (OVRManager.isHmdPresent)
-            {
-                dominantControllerObject.transform.localPosition = OVRInput.GetLocalControllerPosition(dominantController);
-                dominantControllerObject.transform.localRotation = OVRInput.GetLocalControllerRotation(dominantController);
-                supportControllerObject.transform.localPosition = OVRInput.GetLocalControllerPosition(supportController);
-                supportControllerObject.transform.localRotation = OVRInput.GetLocalControllerRotation(supportController);
-            }
-
-            // Move the head object to the head position
-            // Instead of having the head as a child, we need to do this for network purposes
-            head.transform.position = headPosition.position;
-            head.transform.rotation = headPosition.rotation;
+            dominantControllerObject.transform.localPosition = OVRInput.GetLocalControllerPosition(dominantController);
+            dominantControllerObject.transform.localRotation = OVRInput.GetLocalControllerRotation(dominantController);
+            supportControllerObject.transform.localPosition = OVRInput.GetLocalControllerPosition(supportController);
+            supportControllerObject.transform.localRotation = OVRInput.GetLocalControllerRotation(supportController);
 
             // Get the position of the stick
             var moveStickPosition = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, supportController);
@@ -109,32 +122,52 @@ public class PlayerController : NetworkBehaviour
             body.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 
             // Set the move direction relative to the position of the leading hand
-            var moveDirection = body.transform.rotation * new Vector3(
+            moveDirection = body.transform.rotation * new Vector3(
                 moveStickPosition.x,
                 0,
                 moveStickPosition.y
             );
-
-            if (Physics.Raycast(transform.position, -transform.up, out hit, 2f))
-            {
-                // Always move parallel to the ground below us if we're grounded
-                // This makes the character not slow down when climbing hills
-                moveDirection = Quaternion.FromToRotation(transform.up, hit.normal) * moveDirection;
-            }
-
-            // Add forces to move the body relative to the position of the leading hand
-            rb.AddForce(moveDirection * moveSpeed);
         }
         else
         {
-            var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-            var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
-            transform.Rotate(0, x, 0);
-            transform.Translate(0, 0, z);
+            // Use sticks to control movement
+            moveDirection = transform.rotation * new Vector3(
+                Input.GetAxis("Horizontal"),
+                0,
+                Input.GetAxis("Vertical")
+            );
         }
 
+        moveDirection = Vector3.ClampMagnitude(moveDirection * moveSpeed, moveSpeed);
+
+        // Move the head object to the head position
+        // Instead of having the head as a child, we need to do this for network purposes
+        head.transform.position = headPosition.position;
+        head.transform.rotation = headPosition.rotation;
+
+        // This causes the character to ramp off of hills, but makes all hills climbable
+        // if (Physics.Raycast(transform.position, -transform.up, out hit, 2f))
+        // {
+        //     // Always move parallel to the ground below us if we're grounded
+        //     // This makes the character not slow down when climbing hills
+        //     moveDirection = Quaternion.FromToRotation(transform.up, hit.normal) * moveDirection;
+        // }
+
+        // Apply drag
+        var vel = rb.velocity;
+        vel.x *= 0.8f;
+        vel.z *= 0.8f;
+        rb.velocity = vel;
+
+        // Add forces to move the body relative to the position of the leading hand
+        rb.AddForce(moveDirection, ForceMode.Impulse);
+
+        // Add some extra gravity
+        // This makes it impossible for the character to climb hills
+        // rb.AddForce(-transform.up * 10000);
+
         // Firing
-        if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, dominantController) > 0 || Input.GetButton("Fire2"))
+        if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, dominantController) > 0 || Input.GetButton("Fire1"))
         {
             if (Time.time > nextPrimaryFireTime)
             {
@@ -146,7 +179,7 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            if (OVRInput.Get(OVRInput.Button.One, dominantController) || Input.GetButton("Fire1"))
+            if (OVRInput.Get(OVRInput.Button.One, dominantController) || Input.GetButton("Fire2"))
             {
                 if (Time.time > nextSecondaryFireTime)
                 {
@@ -231,4 +264,13 @@ public class PlayerController : NetworkBehaviour
         Destroy(instance, bullet.time);
     }
 
+
+    public static float ClampAngle (float angle, float min, float max)
+    {
+        if (angle < -360F)
+            angle += 360F;
+        if (angle > 360F)
+            angle -= 360F;
+        return Mathf.Clamp (angle, min, max);
+    }
 }
