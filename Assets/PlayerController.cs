@@ -17,6 +17,8 @@ public class PlayerController : NetworkBehaviour
     public GameObject secondaryWeapon;
 
     public float moveSpeed = 1.6f;
+    public float jumpForce = 2f;
+    public float maxSpeed = 10f;
 
     protected Transform headPosition;
 
@@ -191,6 +193,16 @@ public class PlayerController : NetworkBehaviour
 
                     nextSecondaryFireTime = Time.time + (1f / secondaryBulletInstance.rate);
                 }
+            }
+        }
+
+        if (OVRInput.Get(OVRInput.Button.One, dominantController) || Input.GetButton("Jump")) {
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+
+            // Apply speed limit
+            if (rb.velocity.magnitude > maxSpeed){
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
             }
         }
     }
