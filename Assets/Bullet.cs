@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour
 
     public float destroyTime = 0f;
 
+    public GameObject PaintSplatter;
+
     void OnCollisionEnter(Collision collision)
     {
         // The actual object that got hit
@@ -34,6 +36,12 @@ public class Bullet : MonoBehaviour
 
         if (!hasHit)
         {
+            // Draw a paint splatter
+            // Todo: don't draw if hit another bullet
+            var contact = collision.contacts[0];
+            var splatter = Instantiate(PaintSplatter, contact.point, Quaternion.FromToRotation(Vector3.up, contact.normal));
+            splatter.transform.parent = collision.gameObject.transform;
+        
             if (hitObject.CompareTag("Bullet"))
             {
                 // Destroy immediately if bullets hit

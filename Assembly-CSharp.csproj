@@ -85,12 +85,22 @@
      <Compile Include="Assets\OVR\Scripts\Util\OVRSceneSampleController.cs" />
      <Compile Include="Assets\OVR\Scripts\Util\OVRScreenFade.cs" />
      <Compile Include="Assets\OVR\Scripts\Util\OVRWaitCursor.cs" />
+     <Compile Include="Assets\PaintSplatter.cs" />
      <Compile Include="Assets\PlayerController.cs" />
      <Compile Include="Assets\SmoothMouseLook.cs" />
+     <Compile Include="Assets\Splatoonity\Scripts\MatchEditorCamera.cs" />
+     <Compile Include="Assets\Splatoonity\Scripts\Menu.cs" />
+     <Compile Include="Assets\Splatoonity\Scripts\SplatMakerExample.cs" />
+     <Compile Include="Assets\Splatoonity\Scripts\SplatManager.cs" />
+     <None Include="Assets\Splatoonity\Shaders\Resources\WorldTangentUnwrap.shader" />
      <None Include="Assets\OVR\Editor\AndroidManifest.OVRSubmission.xml" />
+     <None Include="Assets\Splatoonity\Shaders\Resources\SplatBlit.shader" />
+     <None Include="Assets\Splatoonity\Shaders\Resources\WorldPosUnwrap.shader" />
      <None Include="Assets\OVR\Resources\Unlit Transparent Color.shader" />
      <None Include="Assets\OVR\Resources\Underlay Transparent Occluder.shader" />
+     <None Include="Assets\Splatoonity\Shaders\Resources\WorldBinormalUnwrap.shader" />
      <None Include="Assets\OVR\Resources\Underlay Impostor.shader" />
+     <None Include="Assets\Splatoonity\Shaders\SplatShader.shader" />
      <None Include="Assets\OVR\Plugins\placeholder.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

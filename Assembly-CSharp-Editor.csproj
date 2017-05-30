@@ -52,10 +52,15 @@
      <Compile Include="Assets\OVR\Editor\OVRPluginUpdater.cs" />
      <Compile Include="Assets\OVR\Editor\OVRPluginUpdaterStub.cs" />
      <Compile Include="Assets\OVR\Editor\OVRScreenshotWizard.cs" />
+     <None Include="Assets\Splatoonity\Shaders\Resources\WorldTangentUnwrap.shader" />
      <None Include="Assets\OVR\Editor\AndroidManifest.OVRSubmission.xml" />
+     <None Include="Assets\Splatoonity\Shaders\Resources\SplatBlit.shader" />
+     <None Include="Assets\Splatoonity\Shaders\Resources\WorldPosUnwrap.shader" />
      <None Include="Assets\OVR\Resources\Unlit Transparent Color.shader" />
      <None Include="Assets\OVR\Resources\Underlay Transparent Occluder.shader" />
+     <None Include="Assets\Splatoonity\Shaders\Resources\WorldBinormalUnwrap.shader" />
      <None Include="Assets\OVR\Resources\Underlay Impostor.shader" />
+     <None Include="Assets\Splatoonity\Shaders\SplatShader.shader" />
      <None Include="Assets\OVR\Plugins\placeholder.txt" />
  <Reference Include="Assembly-UnityScript">
  <HintPath>/Volumes/lazdRAID/Users/lazdHome/repos/VRPaintball/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
