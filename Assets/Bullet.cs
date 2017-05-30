@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     public float speed = 50f;
     public float time = 2f;
 
-    public float destroyTime = 0.1f;
+    public float destroyTime = 0f;
 
     void OnCollisionEnter(Collision collision)
     {
