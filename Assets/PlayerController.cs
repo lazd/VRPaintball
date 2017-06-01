@@ -90,7 +90,11 @@ public class PlayerController : NetworkBehaviour
                 Camera.main.transform.Find("HeadPosition").localPosition = Vector3.zero;
 
                 // Move the marker itself into the camera
-                transform.Find("BodyRoot/CameraRoot/DominantTouch/PaintballMarker").parent = Camera.main.transform;
+                var marker = transform.Find("BodyRoot/CameraRoot/DominantTouch/PaintballMarker");
+                marker.parent = Camera.main.transform;
+
+                // Reset the rotation
+                marker.localRotation = Quaternion.Euler(Vector3.zero);
 
                 // Remove the second hand
                 transform.Find("BodyRoot/CameraRoot/SupportTouch").gameObject.SetActive(false);
