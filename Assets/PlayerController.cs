@@ -42,7 +42,6 @@ public class PlayerController : NetworkBehaviour
 
     private Vector3 moveDirection;
 
-    private Vector3 velocity = Vector3.zero;
     void Start()
     {
         // Disable the MouseLook component by default

@@ -31,9 +31,6 @@ public class DroneControls : MonoBehaviour
     public float descentThrust = 0.01f;
     public float descentAngle = -10f;
 
-    // Velocity vector for damping
-    private Vector3 dampVelocity = Vector3.zero;
-
     private Rigidbody rb;
 
     protected void Start()
