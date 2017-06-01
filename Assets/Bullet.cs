@@ -78,13 +78,6 @@ public class Bullet : MonoBehaviour
 
     void createSplat(Collision collision)
     {
-        var hitObject = collision.collider.gameObject;
-        var hit = collision.contacts[0];
-
         AudioSource.PlayClipAtPoint(splatSound, transform.position);
-
-        var rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-        var splatter = Instantiate(PaintSplatter, hit.point, rotation);
-        splatter.transform.parent = hitObject.transform;
     }
 }
