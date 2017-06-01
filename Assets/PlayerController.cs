@@ -184,8 +184,10 @@ public class PlayerController : NetworkBehaviour
             rb.AddForce(moveDirection, ForceMode.Impulse);
 
             // Add some extra gravity
-            // This makes it impossible for the character to climb hills
-            // rb.AddForce(-transform.up * 10000);
+            if (Physics.Raycast(transform.position, -transform.up, out hit, 3f))
+            {
+                rb.AddForce(-transform.up * 4000);
+            }
 
             if (jetpack)
             {
@@ -214,7 +216,14 @@ public class PlayerController : NetworkBehaviour
         {
             if (Time.time > nextPrimaryFireTime)
             {
-                CmdFirePrimary();
+                var ni = GetComponent<NetworkIdentity>();
+                if (!ni.isServer) {
+                    // Spawn a bullet client side
+                    spawnBullet(bulletSpawn.position, bulletSpawn.rotation, rb.velocity);
+                }
+
+                // Spawn a bullet server side
+                CmdFirePrimary(bulletSpawn.position, bulletSpawn.rotation, rb.velocity);
 
                 nextPrimaryFireTime = Time.time + (1f / primaryBulletInstance.rate);
             }
@@ -241,65 +250,65 @@ public class PlayerController : NetworkBehaviour
         transform.Find("BodyRoot/Body").GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 
-    GameObject spawnBullet()
+    GameObject spawnBullet(Vector3 position, Quaternion rotation, Vector3 velocity)
     {
         var prefab = primaryWeapon;
 
         // Create the Bullet from the Bullet Prefab
         var instance = (GameObject)Instantiate(
             prefab,
-            bulletSpawn.position,
-            bulletSpawn.rotation
+            position,
+            rotation
         );
 
         var bullet = instance.GetComponent<Bullet>();
 
         // Add velocity to the bullet
-        instance.GetComponent<Rigidbody>().velocity = instance.transform.forward * bullet.speed;
+        instance.GetComponent<Rigidbody>().velocity = velocity + instance.transform.forward * bullet.speed;
 
         return instance;
     }
 
     [Command]
-    void CmdFirePrimary()
+    void CmdFirePrimary(Vector3 position, Quaternion rotation, Vector3 velocity)
     {
         var prefab = primaryWeapon;
 
         // Create the Bullet from the Bullet Prefab
         var instance = (GameObject)Instantiate(
             prefab,
-            bulletSpawn.position,
-            bulletSpawn.rotation
+            position,
+            rotation
         );
 
         var bullet = instance.GetComponent<Bullet>();
 
         // Add velocity to the bullet
-        instance.GetComponent<Rigidbody>().velocity = instance.transform.forward * bullet.speed;
+        instance.GetComponent<Rigidbody>().velocity = velocity + instance.transform.forward * bullet.speed;
 
         // Spawn the bullet on the Clients
-        NetworkServer.Spawn(instance);
+        NetworkServer.SpawnWithClientAuthority(instance, connectionToClient);
 
         // Destroy the bullet after it times out
         Destroy(instance, bullet.time);
     }
 
     [Command]
-    void CmdFireSecondary()
+    void CmdFireSecondary(Vector3 position, Quaternion rotation, Vector3 velocity)
     {
         var prefab = secondaryWeapon;
 
         // Create the Bullet from the Bullet Prefab
         var instance = (GameObject)Instantiate(
             prefab,
-            bulletSpawn.position,
-            bulletSpawn.rotation
+            position,
+            rotation
         );
 
         var bullet = instance.GetComponent<Bullet>();
 
         // Add velocity to the bullet
-        instance.GetComponent<Rigidbody>().velocity = instance.transform.forward * bullet.speed;
+        instance.GetComponent<Rigidbody>().velocity = velocity + instance.transform.forward * bullet.speed;
 
         // Spawn the bullet on the Clients
         NetworkServer.Spawn(instance);

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
 public class Bullet : MonoBehaviour
 {
@@ -21,6 +22,15 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
+        var ni = GetComponent<NetworkIdentity>();
+
+        // Remove bullets that were spawned by the server on behalf of us
+        // Since we spawn the bullets locally for the fastest visual feedback, we don't need to show these
+        if (ni.hasAuthority && ni.isClient) {
+            gameObject.SetActive(false);
+            return;
+        }
+
         AudioSource.PlayClipAtPoint(fireSound, transform.position);
     }
 
