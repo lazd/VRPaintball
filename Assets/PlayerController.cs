@@ -255,8 +255,13 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        transform.Find("Healthbar Canvas").gameObject.SetActive(false);
-        transform.Find("BodyRoot/Body").GetComponent<MeshRenderer>().material.color = Color.blue;
+        // Disable your health meter
+        //transform.Find("BodyRoot/Body/Healthbar Canvas").gameObject.SetActive(false);
+
+        // Set team colors
+        // This breaks materials
+        //transform.Find("BodyRoot/Head").GetComponent<MeshRenderer>().material.color = Color.blue;
+        //transform.Find("BodyRoot/Body").GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 
     GameObject spawnBullet(Vector3 position, Quaternion rotation, Vector3 velocity)
