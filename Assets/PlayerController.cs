@@ -42,6 +42,7 @@ public class PlayerController : NetworkBehaviour
 
     private Vector3 moveDirection;
 
+    private Vector3 velocity = Vector3.zero;
     void Start()
     {
         // Disable the MouseLook component by default
@@ -88,8 +89,8 @@ public class PlayerController : NetworkBehaviour
                 // Move the head position back so the head rotates in the right place 
                 Camera.main.transform.Find("HeadPosition").localPosition = Vector3.zero;
 
-                // Attach the dominant hand to the head
-                transform.Find("BodyRoot/CameraRoot/DominantTouch").parent = Camera.main.transform;
+                // Move the marker itself into the camera
+                transform.Find("BodyRoot/CameraRoot/DominantTouch/PaintballMarker").parent = Camera.main.transform;
 
                 // Remove the second hand
                 transform.Find("BodyRoot/CameraRoot/SupportTouch").gameObject.SetActive(false);
@@ -108,6 +109,11 @@ public class PlayerController : NetworkBehaviour
         {
             rb.useGravity = false;
         }
+
+        // Move the head object to the head position
+        // Instead of having the head as a child, we need to do this for network purposes
+        head.transform.position = headPosition.position;
+        head.transform.rotation = headPosition.rotation;
 
         // Movement
         if (VRDevice.isPresent)
@@ -152,14 +158,13 @@ public class PlayerController : NetworkBehaviour
                 0,
                 Input.GetAxis("Vertical")
             );
+
+            // Move the touch controller into to the correct position for network purposes
+            dominantControllerObject.transform.position = transform.Find("BodyRoot/Head/FixedHandPosition").position;
+            dominantControllerObject.transform.rotation = transform.Find("BodyRoot/Head/FixedHandPosition").rotation;
         }
 
         moveDirection = Vector3.ClampMagnitude(moveDirection * moveForce, maxSpeed);
-
-        // Move the head object to the head position
-        // Instead of having the head as a child, we need to do this for network purposes
-        head.transform.position = headPosition.position;
-        head.transform.rotation = headPosition.rotation;
 
         /*
         // This causes the character to ramp off of hills, but makes all hills climbable
