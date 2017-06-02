@@ -86,6 +86,17 @@
     <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\Water.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\WaterBase.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\WaterTile.cs" />
+    <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\AfterburnerPhysicsForce.cs" />
+    <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExplosionFireAndDebris.cs" />
+    <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExplosionPhysicsForce.cs" />
+    <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\Explosive.cs" />
+    <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExtinguishableParticleSystem.cs" />
+    <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\FireLight.cs" />
+    <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\Hose.cs" />
+    <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ParticleSystemMultiplier.cs" />
+    <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\SmokeParticles.cs" />
+    <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\WaterHoseParticles.cs" />
+    <Compile Include="Assets\Standard Assets\Utility\ObjectResetter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Dynamic Decals\Resources\Shaders\Cginc\DeferredProjections.cginc" />
@@ -109,6 +120,10 @@
     <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit.shader" />
     <None Include="Assets\Models\Realistic Grass and Bush Pack3\Shader\glass.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
     <None Include="Assets\Utilities\OVR\Editor\AndroidManifest.OVRSubmission.xml" />
     <None Include="Assets\Utilities\OVR\Plugins\placeholder.txt" />
     <None Include="Assets\Utilities\OVR\Resources\Underlay Impostor.shader" />

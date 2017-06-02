@@ -169,6 +169,10 @@
     <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit.shader" />
     <None Include="Assets\Models\Realistic Grass and Bush Pack3\Shader\glass.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
     <None Include="Assets\Utilities\OVR\Editor\AndroidManifest.OVRSubmission.xml" />
     <None Include="Assets\Utilities\OVR\Plugins\placeholder.txt" />
     <None Include="Assets\Utilities\OVR\Resources\Underlay Impostor.shader" />
