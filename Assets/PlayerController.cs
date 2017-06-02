@@ -8,6 +8,9 @@ public class PlayerController : NetworkBehaviour
     public GameObject body;
     public Transform bulletSpawn;
 
+    public GameObject paintballMarker;
+    public GameObject paintbrush;
+
     public OVRInput.Controller dominantController = OVRInput.Controller.RTouch;
     public OVRInput.Controller supportController = OVRInput.Controller.LTouch;
 
@@ -42,13 +45,18 @@ public class PlayerController : NetworkBehaviour
 
     private Vector3 moveDirection;
 
-    [SyncVar(hook = "OnColor")]
+    [SyncVar(hook = "SetColor")]
     public Color color;
 
-    void OnColor(Color newColor)
+    void SetColor(Color newColor)
     {
         body.GetComponent<Renderer>().material.SetColor("_Color", newColor);
+        body.GetComponent<Renderer>().material.SetColor("_EmissionColor", newColor / 10);
         head.GetComponent<Renderer>().material.SetColor("_Color", newColor);
+        head.GetComponent<Renderer>().material.SetColor("_EmissionColor", newColor / 10);
+        paintbrush.GetComponent<Renderer>().material.SetColor("_Color", newColor);
+        paintbrush.GetComponent<Renderer>().material.SetColor("_EmissionColor", newColor/10);
+        paintballMarker.GetComponent<Renderer>().material.SetColor("_Color", newColor);
 
         color = newColor;
     }
@@ -116,7 +124,7 @@ public class PlayerController : NetworkBehaviour
         }
 
         // Set the color
-        OnColor(color);
+        SetColor(color);
     }
 
     void Update()

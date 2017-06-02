@@ -41,6 +41,6 @@ public class BasicCollisionPrinter : Printer
 
         // Set the color of the decal
         projection.GetComponent<Decal>().AlbedoColor = GetComponent<Bullet>().color;
-        projection.GetComponent<Decal>().EmissionColor = GetComponent<Bullet>().color;
+        projection.GetComponent<Decal>().EmissionColor = GetComponent<Bullet>().color*0.85f;
     }
 }

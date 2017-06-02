@@ -4,7 +4,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class PaintballNetworkManager : NetworkManager {
-    public Color[] playerColors = { Color.green, Color.red, Color.blue, Color.yellow };
+    private Color[] playerColors = new Color[] {
+        new Color(0.9f, 0f, 0), // Red
+        new Color(1, 0.55f, 0), // Orange
+        new Color(1, 0, 0.85f), // Pink
+        new Color(0, 0.50f, 1) // Blue
+    };
     private int lastColor = 0;
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
@@ -14,7 +19,7 @@ public class PaintballNetworkManager : NetworkManager {
         {
             GameObject player = conn.playerControllers[0].gameObject;
             player.GetComponent<PlayerController>().color = playerColors[lastColor];
-            Debug.Log("Settingh color to "+ lastColor +" = "+ playerColors[lastColor]);
+            Debug.Log("Setting color to "+ lastColor +" = "+ playerColors[lastColor]);
             lastColor++;
         }
     }

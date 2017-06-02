@@ -45,7 +45,7 @@ public class Bullet : NetworkBehaviour
     public void SetColor(Color newColor) {
         // Set the bullet color
         GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
-        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", newColor);
+        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", newColor/2);
     }
 
     void OnCollisionEnter(Collision collision)
