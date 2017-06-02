@@ -96,11 +96,11 @@ public class PlayerController : NetworkBehaviour
                 marker.localRotation = Quaternion.Euler(Vector3.zero);
 
                 // Remove the second hand
-                // transform.Find("BodyRoot/CameraRoot/SupportTouch").gameObject.SetActive(false);
+                transform.Find("BodyRoot/CameraRoot/SupportTouch").gameObject.SetActive(false);
 
                 // Move the swatter itself into the camera
-                var swatter = transform.Find("BodyRoot/CameraRoot/SupportTouch/FlySwatter");
-                swatter.parent = Camera.main.transform;
+                //var swatter = transform.Find("BodyRoot/CameraRoot/SupportTouch/FlySwatter");
+                //swatter.parent = Camera.main.transform;
             }
         }
     }

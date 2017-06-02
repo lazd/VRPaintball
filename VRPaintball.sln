@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRPaintball.Plugins", "VRPaintball.Plugins.csproj", "{EEF777D8-81F5-066A-9BF7-062C81CA97CA}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRPaintball", "VRPaintball.csproj", "{37D8F5FA-3497-E00B-C41A-7E82F770F70C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRPaintball.Editor", "VRPaintball.Editor.csproj", "{3AB404F6-76B0-600A-EE7C-D43F98A1BEF3}"
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEF777D8-81F5-066A-9BF7-062C81CA97CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF777D8-81F5-066A-9BF7-062C81CA97CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF777D8-81F5-066A-9BF7-062C81CA97CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF777D8-81F5-066A-9BF7-062C81CA97CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{37D8F5FA-3497-E00B-C41A-7E82F770F70C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{37D8F5FA-3497-E00B-C41A-7E82F770F70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37D8F5FA-3497-E00B-C41A-7E82F770F70C}.Release|Any CPU.ActiveCfg = Release|Any CPU

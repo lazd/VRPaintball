@@ -114,6 +114,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="VRPaintball.Plugins.csproj">
+      <Project>{EEF777D8-81F5-066A-9BF7-062C81CA97CA}</Project>
+      <Name>VRPaintball.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="VRPaintball.csproj">
       <Project>{37D8F5FA-3497-E00B-C41A-7E82F770F70C}</Project>
       <Name>VRPaintball</Name>
@@ -137,6 +141,7 @@
     <Compile Include="Assets\Dynamic Decals\Editor\Printer\RayCollisionPrinterEditor.cs" />
     <Compile Include="Assets\Dynamic Decals\Editor\Printer\RayPrinterEditor.cs" />
     <Compile Include="Assets\Editor\BasicCollisionPrinterEditor.cs" />
+    <Compile Include="Assets\Models\Realistic Grass and Bush Pack3\Editor\GrassPlacemant.cs" />
     <Compile Include="Assets\Utilities\OVR\Editor\OVRBuild.cs" />
     <Compile Include="Assets\Utilities\OVR\Editor\OVRManifestPreprocessor.cs" />
     <Compile Include="Assets\Utilities\OVR\Editor\OVRMoonlightLoader.cs" />
@@ -164,6 +169,8 @@
     <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit-Depth\Unlit-Color.shader" />
     <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit-Depth\Unlit-Normal.shader" />
     <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit.shader" />
+    <None Include="Assets\Models\Realistic Grass and Bush Pack3\Shader\glass.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
     <None Include="Assets\Utilities\OVR\Editor\AndroidManifest.OVRSubmission.xml" />
     <None Include="Assets\Utilities\OVR\Plugins\placeholder.txt" />
     <None Include="Assets\Utilities\OVR\Resources\Underlay Impostor.shader" />

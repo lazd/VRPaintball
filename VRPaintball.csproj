@@ -78,6 +78,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="VRPaintball.Plugins.csproj">
+      <Project>{EEF777D8-81F5-066A-9BF7-062C81CA97CA}</Project>
+      <Name>VRPaintball.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\BasicCollisionPrinter.cs" />
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Bullet.cs" />
@@ -103,6 +109,7 @@
     <Compile Include="Assets\Grenade.cs" />
     <Compile Include="Assets\Health.cs" />
     <Compile Include="Assets\Knife.cs" />
+    <Compile Include="Assets\Models\Realistic Grass and Bush Pack3\script\GrassPlacementScript.cs" />
     <Compile Include="Assets\PaintSplatter.cs" />
     <Compile Include="Assets\PlayerController.cs" />
     <Compile Include="Assets\SmoothMouseLook.cs" />
@@ -160,6 +167,8 @@
     <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit-Depth\Unlit-Color.shader" />
     <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit-Depth\Unlit-Normal.shader" />
     <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit.shader" />
+    <None Include="Assets\Models\Realistic Grass and Bush Pack3\Shader\glass.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
     <None Include="Assets\Utilities\OVR\Editor\AndroidManifest.OVRSubmission.xml" />
     <None Include="Assets\Utilities\OVR\Plugins\placeholder.txt" />
     <None Include="Assets\Utilities\OVR\Resources\Underlay Impostor.shader" />
