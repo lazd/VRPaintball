@@ -120,6 +120,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Dynamic Decals\Editor\Core\DecalEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Core\EraserEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Core\OmniDecalEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Core\ProjectionEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Core\ProjectionMaskEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Core\TextureExtensionMethods.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\DynamicDecalsAssetProcessor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\DynamicDecalsWindow.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Positioner\CursorPositionerEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Positioner\PositionerEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Positioner\RayPositionerEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Printer\CollisionPrinterEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Printer\ParticleCollisionPrinterEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Printer\PrinterEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Printer\RayCollisionPrinterEditor.cs" />
+    <Compile Include="Assets\Dynamic Decals\Editor\Printer\RayPrinterEditor.cs" />
+    <Compile Include="Assets\Editor\BasicCollisionPrinterEditor.cs" />
     <Compile Include="Assets\Utilities\OVR\Editor\OVRBuild.cs" />
     <Compile Include="Assets\Utilities\OVR\Editor\OVRManifestPreprocessor.cs" />
     <Compile Include="Assets\Utilities\OVR\Editor\OVRMoonlightLoader.cs" />
@@ -128,10 +145,25 @@
     <Compile Include="Assets\Utilities\OVR\Editor\OVRScreenshotWizard.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Utilities\DeferredDecals\DecalShaderDiffuseNormals.shader" />
-    <None Include="Assets\Utilities\DeferredDecals\DecalShaderDiffuseOnly.shader" />
-    <None Include="Assets\Utilities\DeferredDecals\DecalShaderNormalsOnly.shader" />
-    <None Include="Assets\Utilities\DeferredDecals\_ReadMe.txt" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Cginc\DeferredProjections.cginc" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Cginc\ForwardProjections.cginc" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Cginc\Projections.cginc" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\EraserRead.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\EraserWrite.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Internal\Blit\Blit.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Internal\Blit\PrePass.cginc" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Internal\DepthTexture\DepthTexture.cginc" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Internal\DepthTexture\Normal.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Internal\Mask\Mask.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Metallic.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Normal.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Omni.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Roughness.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Specular.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit-Depth\Unlit-AlphaTest.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit-Depth\Unlit-Color.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit-Depth\Unlit-Normal.shader" />
+    <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit.shader" />
     <None Include="Assets\Utilities\OVR\Editor\AndroidManifest.OVRSubmission.xml" />
     <None Include="Assets\Utilities\OVR\Plugins\placeholder.txt" />
     <None Include="Assets\Utilities\OVR\Resources\Underlay Impostor.shader" />

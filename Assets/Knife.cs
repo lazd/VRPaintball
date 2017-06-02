@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class Knife : MonoBehaviour
@@ -23,12 +24,16 @@ public class Knife : MonoBehaviour
 
             // Subtract health
             if (hit.rigidbody) {
-                var health = hit.rigidbody.gameObject.GetComponent<Health>();
-                if (health != null)
+                // You can't stab yourself
+                if (!transform.IsChildOf(hit.rigidbody.gameObject.transform))
                 {
-                    health.TakeDamage(damage);
+                    var health = hit.rigidbody.gameObject.GetComponent<Health>();
+                    if (health != null)
+                    {
+                        health.TakeDamage(damage);
 
-                    AudioSource.PlayClipAtPoint(hitSound, transform.position);
+                        AudioSource.PlayClipAtPoint(hitSound, transform.position);
+                    }
                 }
             }
 
