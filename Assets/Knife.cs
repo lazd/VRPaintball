@@ -22,11 +22,11 @@ public class Knife : MonoBehaviour
                 return;
             }
 
-            // Subtract health
-            if (hit.rigidbody) {
-                // You can't stab yourself
-                if (!transform.IsChildOf(hit.rigidbody.gameObject.transform))
-                {
+            // You can't stab yourself
+            if (!transform.IsChildOf(hit.collider.gameObject.transform.root))
+            {
+                // Subtract health
+                if (hit.rigidbody) {
                     var health = hit.rigidbody.gameObject.GetComponent<Health>();
                     if (health != null)
                     {
@@ -35,10 +35,10 @@ public class Knife : MonoBehaviour
                         AudioSource.PlayClipAtPoint(hitSound, transform.position);
                     }
                 }
-            }
 
-            // Add a splat
-            GetComponent<BasicCollisionPrinter>().PrintCollision(hit.point, hit.normal, hitObject);
+                // Add a splat
+                GetComponent<BasicCollisionPrinter>().PrintCollision(hit.point, hit.normal, hitObject);
+            }
         }
     }
 }

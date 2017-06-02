@@ -37,7 +37,6 @@ public class Bullet : MonoBehaviour
             // SetColor(enemyColor);
         }
 
-
         AudioSource.PlayClipAtPoint(fireSound, transform.position);
     }
 
