@@ -8,16 +8,27 @@ public class Knife : MonoBehaviour
 
     public AudioClip hitSound;
 
+    public float stabsPerSecond = 20;
+    private float lastDraw = 0;
+
     private void Update()
     {
-        Debug.DrawRay(transform.position - (transform.up * 0.2f), transform.up, Color.red, 0.65f);
+        // Limit the number of stabs
+        if (Time.time < lastDraw + 1/stabsPerSecond)
+        {
+            return;
+        }
+
+        lastDraw = Time.time;
 
         // Check if the knife is stabby
         RaycastHit hit;
-        if (Physics.Raycast(transform.position - (transform.up * 0.2f), transform.up, out hit, 0.65f)) {
+        if (Physics.Raycast(transform.position - (transform.up * 0.2f), transform.up, out hit, 0.65f))
+        {
             var hitObject = hit.collider.gameObject;
 
-            if (hitObject == gameObject) {
+            if (hitObject == gameObject)
+            {
                 // Don't let the knife paint itself...
                 return;
             }
@@ -26,7 +37,8 @@ public class Knife : MonoBehaviour
             if (!transform.IsChildOf(hit.collider.gameObject.transform.root))
             {
                 // Subtract health
-                if (hit.rigidbody) {
+                if (hit.rigidbody)
+                {
                     var health = hit.rigidbody.gameObject.GetComponent<Health>();
                     if (health != null)
                     {

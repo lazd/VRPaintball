@@ -229,7 +229,7 @@ public class PlayerController : NetworkBehaviour
             if (Time.time > nextPrimaryFireTime)
             {
                 // Bullets shouldn't get all of the player's momentum added to them
-                var bulletVelocity = rb.velocity * 0.5f;
+                var bulletVelocity = rb.velocity * 0.1f;
                 var ni = GetComponent<NetworkIdentity>();
                 if (!ni.isServer) {
                     // Spawn a bullet client side
@@ -242,20 +242,13 @@ public class PlayerController : NetworkBehaviour
                 nextPrimaryFireTime = Time.time + (1f / primaryBulletInstance.rate);
             }
         }
-        /*
         else
         {
-            if (OVRInput.Get(OVRInput.Button.One, dominantController) || Input.GetButton("Fire1"))
+            if (OVRInput.Get(OVRInput.Button.One, dominantController) || Input.GetButton("Fire2"))
             {
-                if (Time.time > nextSecondaryFireTime)
-                {
-                    CmdFireSecondary();
-
-                    nextSecondaryFireTime = Time.time + (1f / secondaryBulletInstance.rate);
-                }
+                // Stab knife
             }
         }
-        */
     }
 
     public override void OnStartLocalPlayer()
