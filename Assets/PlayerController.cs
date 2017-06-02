@@ -42,6 +42,17 @@ public class PlayerController : NetworkBehaviour
 
     private Vector3 moveDirection;
 
+    [SyncVar(hook = "OnColor")]
+    public Color color;
+
+    void OnColor(Color newColor)
+    {
+        body.GetComponent<Renderer>().material.SetColor("_Color", newColor);
+        head.GetComponent<Renderer>().material.SetColor("_Color", newColor);
+
+        color = newColor;
+    }
+
     void Start()
     {
         // Disable the MouseLook component by default
@@ -103,6 +114,9 @@ public class PlayerController : NetworkBehaviour
                 //swatter.parent = Camera.main.transform;
             }
         }
+
+        // Set the color
+        OnColor(color);
     }
 
     void Update()
@@ -233,11 +247,11 @@ public class PlayerController : NetworkBehaviour
                 var ni = GetComponent<NetworkIdentity>();
                 if (!ni.isServer) {
                     // Spawn a bullet client side
-                    spawnBullet(bulletSpawn.position, bulletSpawn.rotation, bulletVelocity);
+                    spawnBullet(bulletSpawn.position, bulletSpawn.rotation, bulletVelocity, Network.player.guid, color);
                 }
 
                 // Spawn a bullet server side
-                CmdFirePrimary(bulletSpawn.position, bulletSpawn.rotation, bulletVelocity);
+                CmdFirePrimary(bulletSpawn.position, bulletSpawn.rotation, bulletVelocity, Network.player.guid, color);
 
                 nextPrimaryFireTime = Time.time + (1f / primaryBulletInstance.rate);
             }
@@ -255,14 +269,9 @@ public class PlayerController : NetworkBehaviour
     {
         // Disable your health meter
         //transform.Find("BodyRoot/Body/Healthbar Canvas").gameObject.SetActive(false);
-
-        // Set team colors
-        // This breaks materials
-        //transform.Find("BodyRoot/Head").GetComponent<MeshRenderer>().material.color = Color.blue;
-        //transform.Find("BodyRoot/Body").GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 
-    GameObject spawnBullet(Vector3 position, Quaternion rotation, Vector3 velocity)
+    GameObject spawnBullet(Vector3 position, Quaternion rotation, Vector3 velocity, string id, Color bulletColor)
     {
         var prefab = primaryWeapon;
 
@@ -274,6 +283,10 @@ public class PlayerController : NetworkBehaviour
         );
 
         var bullet = instance.GetComponent<Bullet>();
+        bullet.owner = id;
+        bullet.color = bulletColor;
+
+        bullet.SetColor(Color.blue);
 
         // Add velocity to the bullet
         instance.GetComponent<Rigidbody>().velocity = velocity + instance.transform.forward * bullet.speed;
@@ -282,7 +295,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    void CmdFirePrimary(Vector3 position, Quaternion rotation, Vector3 velocity)
+    void CmdFirePrimary(Vector3 position, Quaternion rotation, Vector3 velocity, string id, Color bulletColor)
     {
         var prefab = primaryWeapon;
 
@@ -294,6 +307,8 @@ public class PlayerController : NetworkBehaviour
         );
 
         var bullet = instance.GetComponent<Bullet>();
+        bullet.owner = id;
+        bullet.color = bulletColor;
 
         // Add velocity to the bullet
         instance.GetComponent<Rigidbody>().velocity = velocity + instance.transform.forward * bullet.speed;
@@ -306,7 +321,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    void CmdFireSecondary(Vector3 position, Quaternion rotation, Vector3 velocity)
+    void CmdFireSecondary(Vector3 position, Quaternion rotation, Vector3 velocity, string id, Color bulletColor)
     {
         var prefab = secondaryWeapon;
 
@@ -318,6 +333,8 @@ public class PlayerController : NetworkBehaviour
         );
 
         var bullet = instance.GetComponent<Bullet>();
+        bullet.owner = id;
+        bullet.color = bulletColor;
 
         // Add velocity to the bullet
         instance.GetComponent<Rigidbody>().velocity = velocity + instance.transform.forward * bullet.speed;

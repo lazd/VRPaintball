@@ -87,6 +87,7 @@
     <Compile Include="Assets\BasicCollisionPrinter.cs" />
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Bullet.cs" />
+    <Compile Include="Assets\CapturePoint.cs" />
     <Compile Include="Assets\Cubes.cs" />
     <Compile Include="Assets\DroneControls.cs" />
     <Compile Include="Assets\Dynamic Decals\Components\Core\DynamicDecalSettings.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Assets\Knife.cs" />
     <Compile Include="Assets\Models\Realistic Grass and Bush Pack3\script\GrassPlacementScript.cs" />
     <Compile Include="Assets\PaintSplatter.cs" />
+    <Compile Include="Assets\PaintballNetworkManager.cs" />
     <Compile Include="Assets\PlayerController.cs" />
     <Compile Include="Assets\SmoothMouseLook.cs" />
     <Compile Include="Assets\Utilities\OVR\Scripts\OVRBoundary.cs" />

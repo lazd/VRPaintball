@@ -114,13 +114,15 @@ public class Printer : MonoBehaviour
     * @param Rotation The orientation of the printed projection, in world space.
     * @param Surface The transform the projection will be childed to. Will be ignored unless printer has Print Parent set to surface (Not default).
     */
-    public void Print(Vector3 Position, Quaternion Rotation, Transform Surface, int Layer = 0)
+    public Projection Print(Vector3 Position, Quaternion Rotation, Transform Surface, int Layer = 0)
     {
+        Projection instance = null;
+
         //Projection Check
         if (prints == null || prints.Length < 1)
         {
             Debug.LogError("No Projections to print. Please set at least one projection to print.");
-            return;
+            return instance;
         }
 
         //Frequency Check
@@ -139,7 +141,7 @@ public class Printer : MonoBehaviour
                     {
                         //Destroy on print
                         if (destroyOnPrint) Destroy(gameObject);
-                        return;
+                        return instance;
                     }
                 }
             }
@@ -150,21 +152,21 @@ public class Printer : MonoBehaviour
                 case PrintSelection.Layer:
                     if (printLayers == null || printLayers.Length == 0)
                     {
-                        PrintProjection(prints[0], Position, Rotation, Surface);
+                        instance = PrintProjection(prints[0], Position, Rotation, Surface);
                     }
                     else
                     {
                         //If the layer mask contains the hit layer, print the decal associated with it.
                         for (int i = 0; i < printLayers.Length; i++)
                         {
-                            if (printLayers[i] == (printLayers[i] | (1 << Layer))) PrintProjection(prints[i], Position, Rotation, Surface);
+                            if (printLayers[i] == (printLayers[i] | (1 << Layer))) instance = PrintProjection(prints[i], Position, Rotation, Surface);
                         }
                     }
                     break;
                 case PrintSelection.Tag:
                     if (printLayers == null || printLayers.Length == 0)
                     {
-                        PrintProjection(prints[0], Position, Rotation, Surface);
+                        instance = PrintProjection(prints[0], Position, Rotation, Surface);
                     }
                     else
                     {
@@ -174,7 +176,7 @@ public class Printer : MonoBehaviour
                         {
                             if (printTags[i] == Surface.tag)
                             {
-                                PrintProjection(prints[i], Position, Rotation, Surface);
+                                instance = PrintProjection(prints[i], Position, Rotation, Surface);
                                 printed = true;
                             }
                         }
@@ -182,7 +184,7 @@ public class Printer : MonoBehaviour
                         //If the surface has no relevant tag, print the default print.
                         if (!printed)
                         {
-                            PrintProjection(prints[0], Position, Rotation, Surface);
+                            instance = PrintProjection(prints[0], Position, Rotation, Surface);
                         }
                     }
                     break;
@@ -190,13 +192,13 @@ public class Printer : MonoBehaviour
                     //Generate an int between one and the prints length
                     int index = Random.Range(0, prints.Length);
                     //Print the projection at that index
-                    PrintProjection(prints[index], Position, Rotation, Surface);
+                    instance = PrintProjection(prints[index], Position, Rotation, Surface);
                     break;
                 case PrintSelection.All:
                     //Print each projection once
                     foreach (Projection projection in prints)
                     {
-                        PrintProjection(projection, Position, Rotation, Surface);
+                        instance = PrintProjection(projection, Position, Rotation, Surface);
                     }
                     break;
             }
@@ -208,8 +210,10 @@ public class Printer : MonoBehaviour
             timeSincePrint = 0;
             lastPrintPos = Position;
         }
+
+        return instance;
     }
-    private void PrintProjection(Projection Projection, Vector3 Position, Quaternion Rotation, Transform Surface)
+    private Projection PrintProjection(Projection Projection, Vector3 Position, Quaternion Rotation, Transform Surface)
     {
         if (Projection != null)
         {
@@ -240,7 +244,10 @@ public class Printer : MonoBehaviour
                 }
                 proj.transform.SetParent(subParent);
             }
+
+            return proj;
         }
+        return null;
     }
 }
 //Overlap

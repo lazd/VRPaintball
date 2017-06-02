@@ -37,6 +37,10 @@ public class BasicCollisionPrinter : Printer
         else rot = Vector3.up;
 
         //Print
-        Print(position, Quaternion.LookRotation(-normal, rot), hitObject.transform, hitObject.layer);
+        Projection projection = Print(position, Quaternion.LookRotation(-normal, rot), hitObject.transform, hitObject.layer);
+
+        // Set the color of the decal
+        projection.GetComponent<Decal>().AlbedoColor = GetComponent<Bullet>().color;
+        projection.GetComponent<Decal>().EmissionColor = GetComponent<Bullet>().color;
     }
 }
