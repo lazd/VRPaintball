@@ -228,14 +228,16 @@ public class PlayerController : NetworkBehaviour
         {
             if (Time.time > nextPrimaryFireTime)
             {
+                // Bullets shouldn't get all of the player's momentum added to them
+                var bulletVelocity = rb.velocity * 0.5f;
                 var ni = GetComponent<NetworkIdentity>();
                 if (!ni.isServer) {
                     // Spawn a bullet client side
-                    spawnBullet(bulletSpawn.position, bulletSpawn.rotation, rb.velocity);
+                    spawnBullet(bulletSpawn.position, bulletSpawn.rotation, bulletVelocity);
                 }
 
                 // Spawn a bullet server side
-                CmdFirePrimary(bulletSpawn.position, bulletSpawn.rotation, rb.velocity);
+                CmdFirePrimary(bulletSpawn.position, bulletSpawn.rotation, bulletVelocity);
 
                 nextPrimaryFireTime = Time.time + (1f / primaryBulletInstance.rate);
             }
