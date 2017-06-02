@@ -20,6 +20,8 @@ public class Bullet : MonoBehaviour
 
     public GameObject PaintSplatter;
 
+    public Color enemyColor;
+
     private void Start()
     {
         var ni = GetComponent<NetworkIdentity>();
@@ -30,8 +32,24 @@ public class Bullet : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
+        else if (!ni.hasAuthority) {
+            // It's an enemy bullet!
+            // SetColor(enemyColor);
+        }
+
 
         AudioSource.PlayClipAtPoint(fireSound, transform.position);
+    }
+
+    public void SetColor(Color newColor) {
+        // Set the associated decal color
+        var decal = GetComponent<BasicCollisionPrinter>().prints[0].GetComponent<Decal>();
+        decal.AlbedoColor = newColor;
+        decal.EmissionColor = newColor;
+
+        // Set the bullet color
+        GetComponent<MeshRenderer>().material.color = newColor;
+        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", newColor);
     }
 
     void OnCollisionEnter(Collision collision)

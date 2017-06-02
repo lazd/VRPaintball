@@ -8,13 +8,10 @@ using UnityEditor;
 public class BasicCollisionPrinterEditor : PrinterEditor
 {
     SerializedProperty rotationSource;
-    SerializedProperty layers;
-
     public override void OnEnable()
     {
-        base.OnEnable();
         rotationSource = serializedObject.FindProperty("rotationSource");
-        layers = serializedObject.FindProperty("layers");
+        base.OnEnable();
     }
 
     public override void OnInspectorGUI()
@@ -29,32 +26,10 @@ public class BasicCollisionPrinterEditor : PrinterEditor
         FadeGUI();
         FrequencyGUI();
 
-        LayersGUI();
         RotationGUI();
 
         //Apply modified properties
         serializedObject.ApplyModifiedProperties();
-    }
-
-    private void LayersGUI()
-    {
-        if (prints.arraySize > 1 && printMethod.enumValueIndex == 2)
-        {
-            int finalLayers = 0;
-            foreach (SerializedProperty layermask in printLayers)
-            {
-                finalLayers = (finalLayers | layermask.intValue);
-            }
-            layers.intValue = finalLayers;
-        }
-        else
-        {
-            EditorGUILayout.LabelField(new GUIContent("Layers", "Which layers to cast against"));
-            EditorGUI.indentLevel++;
-            EditorGUILayout.PropertyField(layers, new GUIContent("", "Which layers to cast against"));
-            EditorGUI.indentLevel--;
-            EditorGUILayout.Space();
-        }
     }
     private void RotationGUI()
     {
