@@ -9,6 +9,7 @@ public class CapturePoint : NetworkBehaviour {
 
     public Light haloLight;
     public Light areaLight;
+    public GameObject sphere;
     
     [SyncVar]
     public int health = 100;
@@ -30,8 +31,8 @@ public class CapturePoint : NetworkBehaviour {
         var healthFraction = health / (float)maxHealth;
         intensity = Mathf.SmoothDamp(intensity, healthFraction, ref dampVeclocity, smoothTime);
 
-        GetComponent<MeshRenderer>().material.SetColor("_Color", (color / 2) * intensity);
-        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", (color / 2) * intensity);
+        sphere.GetComponent<MeshRenderer>().material.SetColor("_Color", (color / 2) * intensity);
+        sphere.GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", (color / 2) * intensity);
         haloLight.intensity = intensity;
         areaLight.intensity = intensity * 4;
     }

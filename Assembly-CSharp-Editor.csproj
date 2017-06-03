@@ -63,6 +63,7 @@
      <Compile Include="Assets\Dynamic Decals\Editor\Printer\RayCollisionPrinterEditor.cs" />
      <Compile Include="Assets\Dynamic Decals\Editor\Printer\RayPrinterEditor.cs" />
      <Compile Include="Assets\Editor\BasicCollisionPrinterEditor.cs" />
+     <Compile Include="Assets\Models\Realistic Grass and Bush Pack3\Editor\GrassPlacemant.cs" />
      <Compile Include="Assets\Utilities\OVR\Editor\OVRBuild.cs" />
      <Compile Include="Assets\Utilities\OVR\Editor\OVRManifestPreprocessor.cs" />
      <Compile Include="Assets\Utilities\OVR\Editor\OVRMoonlightLoader.cs" />
@@ -74,20 +75,26 @@
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Internal\DepthTexture\DepthTexture.cginc" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Roughness.shader" />
      <None Include="Assets\Utilities\OVR\Editor\AndroidManifest.OVRSubmission.xml" />
+     <None Include="Assets\Models\Realistic Grass and Bush Pack3\Shader\glass.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Omni.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Cginc\ForwardProjections.cginc" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit-Depth\Unlit-Normal.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Metallic.shader" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit-Depth\Unlit-Color.shader" />
      <None Include="Assets\Utilities\OVR\Resources\Unlit Transparent Color.shader" />
+     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Normal.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Internal\DepthTexture\Normal.shader" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
      <None Include="Assets\Utilities\OVR\Resources\Underlay Transparent Occluder.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Specular.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Cginc\Projections.cginc" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\EraserRead.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Unlit-Depth\Unlit-AlphaTest.shader" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
      <None Include="Assets\Utilities\OVR\Resources\Underlay Impostor.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Internal\Mask\Mask.shader" />
      <None Include="Assets\Dynamic Decals\Resources\Shaders\Internal\Blit\PrePass.cginc" />
@@ -167,6 +174,8 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{A34B7A51-F5C3-E0E3-3E3A-1C655D35A637}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{F6DEA8DE-FD6C-98DE-FAB0-BCFC8334430C}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
