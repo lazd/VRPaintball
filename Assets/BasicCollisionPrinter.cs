@@ -15,8 +15,6 @@ public class BasicCollisionPrinter : Printer
 
     public float triggerDelayTime = 0.5f;
 
-    private float lastStayTrigger = 0f;
-
     void OnCollisionEnter(Collision collision)
     {
         ContactPoint hit = collision.contacts[0];

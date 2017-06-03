@@ -280,6 +280,24 @@ public class PlayerController : NetworkBehaviour
         // Disable your health meter
         //transform.Find("BodyRoot/Body/Healthbar Canvas").gameObject.SetActive(false);
     }
+    void OnPlayerConnected(NetworkPlayer player)
+    {
+        Debug.Log("Player connected from " + player.ipAddress);
+    }
+
+    void OnPlayerDisconnected(NetworkPlayer player)
+    {
+        Debug.Log("Player disconnected from " + player.ipAddress);
+    }
+
+    void OnDisable()
+    {
+        if (isLocalPlayer)
+        {
+            // Reparent camera
+            Camera.main.transform.parent = null;
+        }
+    }
 
     GameObject spawnBullet(Vector3 position, Quaternion rotation, Vector3 velocity, string id, Color bulletColor)
     {
