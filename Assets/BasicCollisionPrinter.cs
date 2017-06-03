@@ -22,10 +22,10 @@ public class BasicCollisionPrinter : Printer
         ContactPoint hit = collision.contacts[0];
         Vector3 position = hit.point;
         Vector3 normal = hit.normal;
-        PrintCollision(position, normal, hit.otherCollider.gameObject);
+        PrintCollision(position, normal, hit.otherCollider.gameObject, GetComponent<Bullet>().color);
     }
 
-    public void PrintCollision(Vector3 position, Vector3 normal, GameObject hitObject)
+    public void PrintCollision(Vector3 position, Vector3 normal, GameObject hitObject, Color color)
     {
         //Calculate final position and surface normal (Not collision normal)
         Transform surface = hitObject.transform;
@@ -40,7 +40,10 @@ public class BasicCollisionPrinter : Printer
         Projection projection = Print(position, Quaternion.LookRotation(-normal, rot), hitObject.transform, hitObject.layer);
 
         // Set the color of the decal
-        projection.GetComponent<Decal>().AlbedoColor = GetComponent<Bullet>().color;
-        projection.GetComponent<Decal>().EmissionColor = GetComponent<Bullet>().color*0.85f;
+        if (color != null)
+        {
+            projection.GetComponent<Decal>().AlbedoColor = color;
+            projection.GetComponent<Decal>().EmissionColor = color * 0.85f;
+        }
     }
 }

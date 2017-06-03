@@ -47,9 +47,9 @@ public class Knife : MonoBehaviour
                         AudioSource.PlayClipAtPoint(hitSound, transform.position);
                     }
                 }
-
+                Debug.Log(gameObject.transform.root.GetComponent<PlayerController>().color);
                 // Add a splat
-                GetComponent<BasicCollisionPrinter>().PrintCollision(hit.point, hit.normal, hitObject);
+                GetComponent<BasicCollisionPrinter>().PrintCollision(hit.point, hit.normal, hitObject, gameObject.transform.root.GetComponent<PlayerController>().color);
             }
         }
     }

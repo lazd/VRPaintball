@@ -19,7 +19,6 @@ public class PaintballNetworkManager : NetworkManager {
         {
             GameObject player = conn.playerControllers[0].gameObject;
             player.GetComponent<PlayerController>().color = playerColors[lastColor];
-            Debug.Log("Setting color to "+ lastColor +" = "+ playerColors[lastColor]);
             lastColor++;
         }
     }
