@@ -48,6 +48,8 @@ public class PlayerController : NetworkBehaviour
     [SyncVar(hook = "SetColor")]
     public Color color;
 
+    private Quaternion markerOriginalRotation;
+
     void SetColor(Color newColor)
     {
         body.GetComponent<Renderer>().material.SetColor("_Color", newColor);
